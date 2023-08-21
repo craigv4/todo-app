@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+:root {
+	font-family: "Victor Mono", monospace;
+}
+
+.checked {
+	color: rgb(21 128 61 / var(--tw-text-opacity));
+	text-decoration-line: line-through;
+}
+
+.checked-div {
+	background-color: rgb(187 247 208 / var(--tw-bg-opacity));
+}
