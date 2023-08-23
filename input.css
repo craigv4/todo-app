@@ -8,11 +8,21 @@
 	font-family: "Victor Mono", monospace;
 }
 
+.checked-div {
+	background-color: rgb(187 247 208 / var(--tw-bg-opacity));
+	opacity: 30%;
+	position: relative;
+	/* top: 11rem; */
+	transition: all;
+	transform: translateY(11rem);
+	transition-duration: 400ms;
+}
 .checked {
 	color: rgb(21 128 61 / var(--tw-text-opacity));
 	text-decoration-line: line-through;
 }
-
-.checked-div {
-	background-color: rgb(187 247 208 / var(--tw-bg-opacity));
+.removed {
+	transform: translateX(11rem);
+	transition-duration: 400ms;
+	opacity: 0;
 }

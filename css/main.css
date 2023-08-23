@@ -572,10 +572,6 @@ video {
   order: 9999;
 }
 
-.order-first {
-  order: -9999;
-}
-
 .mx-8 {
   margin-left: 2rem;
   margin-right: 2rem;
@@ -584,6 +580,11 @@ video {
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.my-3 {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .my-4 {
@@ -766,6 +767,10 @@ video {
   transition-duration: 150ms;
 }
 
+.duration-700 {
+  transition-duration: 700ms;
+}
+
 .ease-in-out {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -774,13 +779,25 @@ video {
   font-family: "Victor Mono", monospace;
 }
 
+.checked-div {
+  background-color: rgb(187 247 208 / var(--tw-bg-opacity));
+  opacity: 30%;
+  position: relative;
+  /* top: 11rem; */
+  transition: all;
+  transform: translateY(11rem);
+  transition-duration: 400ms;
+}
+
 .checked {
   color: rgb(21 128 61 / var(--tw-text-opacity));
   text-decoration-line: line-through;
 }
 
-.checked-div {
-  background-color: rgb(187 247 208 / var(--tw-bg-opacity));
+.removed {
+  transform: translateX(11rem);
+  transition-duration: 400ms;
+  opacity: 0;
 }
 
 .hover\:bg-gray-300:hover {
