@@ -680,11 +680,6 @@ video {
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 
-.border-red-600 {
-  --tw-border-opacity: 1;
-  border-color: rgb(220 38 38 / var(--tw-border-opacity));
-}
-
 .bg-gray-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
@@ -706,6 +701,11 @@ video {
 
 .text-center {
   text-align: center;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 
 .text-4xl {
@@ -735,6 +735,10 @@ video {
   font-style: italic;
 }
 
+.tracking-widest {
+  letter-spacing: 0.1em;
+}
+
 .text-gray-300 {
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity));
@@ -753,10 +757,6 @@ video {
 .text-red-700 {
   --tw-text-opacity: 1;
   color: rgb(185 28 28 / var(--tw-text-opacity));
-}
-
-.line-through {
-  text-decoration-line: line-through;
 }
 
 .transition {
@@ -780,24 +780,46 @@ video {
 }
 
 .checked-div {
-  background-color: rgb(187 247 208 / var(--tw-bg-opacity));
   opacity: 30%;
   position: relative;
-  /* top: 11rem; */
-  transition: all;
-  transform: translateY(11rem);
-  transition-duration: 400ms;
-}
-
-.checked {
-  color: rgb(21 128 61 / var(--tw-text-opacity));
-  text-decoration-line: line-through;
+  transition: opacity;
+  transition-duration: 500ms;
 }
 
 .removed {
-  transform: translateX(11rem);
-  transition-duration: 400ms;
+  transition-duration: 500ms;
   opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+}
+
+.todo-item {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.todo-item.removed {
+  animation: fadeOut 0.4s ease-in-out;
 }
 
 .hover\:bg-gray-300:hover {

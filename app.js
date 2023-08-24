@@ -2,44 +2,45 @@
 
 const todoInput = document.getElementById("todo-input");
 const todoButton = document.getElementById("todo-button");
-const todoContainer = document.getElementById("todo-container");
 const todoList = document.getElementById("todo-list");
+
+const divClasses = ["flex", "justify-end", "space-x-2", "mx-8", "my-3", "border-2", "border-gray-300", "p-2", "rounded-lg", "todo-item"];
+const liClasses = ["list-none", "font-bold", "flex-1", "text-xl", "tracking-widest"];
 
 // functions
 
-const addTodo = (event) => {
-	event.preventDefault();
+const addTodo = (e) => {
+	e.preventDefault();
 
-	const todoDiv = document.createElement("div");
-	todoDiv.classList.add("flex", "justify-end", "space-x-2", "mx-8", "my-3", "border-2", "border-gray-300", "p-2", "rounded-lg");
-	const todoListItem = document.createElement("li");
-	todoListItem.classList.add("list-none", "font-bold", "flex-1");
-	todoListItem.textContent = todoInput.value;
-	todoDiv.appendChild(todoListItem);
+	if (!todoInput.value) {
+		return;
+	} else {
+		const todoDiv = document.createElement("div");
+		todoDiv.classList.add(...divClasses);
+		const todoListItem = document.createElement("li");
+		todoListItem.classList.add(...liClasses);
+		todoListItem.textContent = todoInput.value;
+		todoDiv.appendChild(todoListItem);
+		saveLocalTodos(todoInput.value);
+		const checkBtn = document.createElement("button");
+		checkBtn.innerHTML = '<i class="fa fa-check-square text-3xl text-green-700 "></i>';
+		const deleteBtn = document.createElement("button");
+		deleteBtn.innerHTML = '<i class="fa fa-minus-square text-3xl text-red-700 "></i>';
+		todoDiv.appendChild(checkBtn);
+		todoDiv.appendChild(deleteBtn);
+		todoList.appendChild(todoDiv);
 
-	saveLocalTodos(todoInput.value);
-
-	const checkBtn = document.createElement("button");
-	checkBtn.innerHTML = '<i class="fa fa-check-square text-xl text-green-700"></i>';
-	const deleteBtn = document.createElement("button");
-	deleteBtn.innerHTML = '<i class="fa fa-minus-square text-xl text-red-700"></i>';
-	todoDiv.appendChild(checkBtn);
-	todoDiv.appendChild(deleteBtn);
-	todoList.appendChild(todoDiv);
-
-	todoInput.value = "";
-
-	// } else {
-	// 	todoInput.classList.add("border", "border-red-600");
-	// }
+		todoInput.value = "";
+	}
 };
 
-const checkDelete = (e) => {
+const actionBtn = (e) => {
 	parentDiv = e.target.parentElement.parentElement;
 
 	if (e.target.classList[1] === "fa-minus-square") {
 		parentDiv.classList.add("removed");
-		// parentDiv.remove();
+		removeLocalTodos(parentDiv);
+		parentDiv.classList.remove("todo-item");
 		parentDiv.addEventListener("transitionend", () => {
 			parentDiv.remove();
 		});
@@ -49,24 +50,31 @@ const checkDelete = (e) => {
 		parentDiv.firstElementChild.classList.toggle("checked");
 		parentDiv.classList.toggle("checked-div");
 		parentDiv.classList.toggle("order-last");
-		// console.log(parentDiv.parentElement);
 	}
 };
 
 const saveLocalTodos = (todo) => {
-	// check if we already have a todo
-
 	let todos;
-
 	if (localStorage.getItem("todos") === null) {
 		todos = [];
 	} else {
 		todos = JSON.parse(localStorage.getItem("todos"));
 	}
-
 	todos.push(todo);
 	localStorage.setItem("todos", JSON.stringify(todos));
 };
+
+function removeLocalTodos(todo) {
+	let todos;
+	if (localStorage.getItem("todos") === null) {
+		todos = [];
+	} else {
+		todos = JSON.parse(localStorage.getItem("todos"));
+	}
+	const todoIndex = todo.children[0].textContent;
+	todos.splice(todos.indexOf(todoIndex), 1);
+	localStorage.setItem("todos", JSON.stringify(todos));
+}
 
 const getTodos = () => {
 	let todos;
@@ -75,19 +83,17 @@ const getTodos = () => {
 	} else {
 		todos = JSON.parse(localStorage.getItem("todos"));
 	}
-
 	todos.forEach((todo) => {
 		const todoDiv = document.createElement("div");
-		todoDiv.classList.add("flex", "justify-end", "space-x-2", "mx-8", "my-3", "border-2", "border-gray-300", "p-2", "rounded-lg");
+		todoDiv.classList.add(...divClasses);
 		const todoListItem = document.createElement("li");
-		todoListItem.classList.add("list-none", "font-bold", "flex-1");
-		todoListItem.textContent = todo;
+		todoListItem.classList.add(...liClasses);
+		todoListItem.textContent = todoInput.value;
 		todoDiv.appendChild(todoListItem);
-
 		const checkBtn = document.createElement("button");
-		checkBtn.innerHTML = '<i class="fa fa-check-square text-xl text-green-700"></i>';
+		checkBtn.innerHTML = '<i class="fa fa-check-square text-3xl text-green-700 "></i>';
 		const deleteBtn = document.createElement("button");
-		deleteBtn.innerHTML = '<i class="fa fa-minus-square text-xl text-red-700"></i>';
+		deleteBtn.innerHTML = '<i class="fa fa-minus-square text-3xl text-red-700 "></i>';
 		todoDiv.appendChild(checkBtn);
 		todoDiv.appendChild(deleteBtn);
 		todoList.appendChild(todoDiv);
@@ -97,6 +103,5 @@ const getTodos = () => {
 // eventListeners
 
 document.addEventListener("DOMContentLoaded", getTodos);
-
 todoButton.addEventListener("click", addTodo);
-todoList.addEventListener("click", checkDelete);
+todoList.addEventListener("click", actionBtn);

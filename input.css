@@ -9,20 +9,42 @@
 }
 
 .checked-div {
-	background-color: rgb(187 247 208 / var(--tw-bg-opacity));
 	opacity: 30%;
 	position: relative;
-	/* top: 11rem; */
-	transition: all;
-	transform: translateY(11rem);
-	transition-duration: 400ms;
+	transition: opacity;
+	transition-duration: 500ms;
 }
-.checked {
-	color: rgb(21 128 61 / var(--tw-text-opacity));
-	text-decoration-line: line-through;
-}
+
 .removed {
-	transform: translateX(11rem);
-	transition-duration: 400ms;
+	transition-duration: 500ms;
 	opacity: 0;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+		transform: translateX(10px);
+	}
+}
+
+.todo-item {
+	animation: fadeIn 0.4s ease-in-out;
+}
+
+.todo-item.removed {
+	animation: fadeOut 0.4s ease-in-out;
 }
