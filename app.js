@@ -83,12 +83,13 @@ const getTodos = () => {
 	} else {
 		todos = JSON.parse(localStorage.getItem("todos"));
 	}
+	console.log(todos);
 	todos.forEach((todo) => {
 		const todoDiv = document.createElement("div");
 		todoDiv.classList.add(...divClasses);
 		const todoListItem = document.createElement("li");
 		todoListItem.classList.add(...liClasses);
-		todoListItem.textContent = todoInput.value;
+		todoListItem.textContent = todo;
 		todoDiv.appendChild(todoListItem);
 		const checkBtn = document.createElement("button");
 		checkBtn.innerHTML = '<i class="fa fa-check-square text-3xl text-green-700 "></i>';
@@ -97,6 +98,7 @@ const getTodos = () => {
 		todoDiv.appendChild(checkBtn);
 		todoDiv.appendChild(deleteBtn);
 		todoList.appendChild(todoDiv);
+		// console.log(todoInput.value);
 	});
 };
 
